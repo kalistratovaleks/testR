@@ -15,5 +15,7 @@ function firstTask(arr) {
       resultArray.push(0);
     }
   }
-  console.log(arr, resultArray);
+  console.log(arr);
+  console.log(resultArray);
+  return resultArray;
 }

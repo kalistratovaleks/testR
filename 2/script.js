@@ -33,4 +33,5 @@ function secondTask(matrix) {
     }
   }
   console.log(result);
+  return result;
 }

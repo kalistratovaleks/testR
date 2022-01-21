@@ -2,89 +2,48 @@ let text = [
   ["Hello", "world"],
   ["Brad", "came", "to", "dinner", "with", "us"],
   ["He", "loves", "tacos"],
+  ["He", "loves", "tacos", "jb"],
+  ["He", "loves", "tacos", "b", "loves", "tacos"],
 ];
-
-let position = ["LEFT", "RIGHT", "LEFT"];
-
-let limit = 16;
+let position = ["LEFT", "RIGHT", "LEFT", "RIGHT", "LEFT"];
+let limit = 30;
 
 thirdTask(text, position, limit);
 
 function thirdTask(textArray, positionArray, limit) {
-  let firstStr = textArray[0];
-  let secondStr = textArray[1];
-  let thirdStr = textArray[2];
-
-  console.log(`${"*".repeat(limit + 2)}`);
-
-  if (positionArray[0] === "LEFT") {
-    console.log(
-      `*${firstStr.toString().replace(/,/g, " ")}${" ".repeat(
-        limit - firstStr.toString().length
-      )}*`
-    );
-  } else {
-    console.log(
-      `*${" ".repeat(limit - firstStr.toString().length)}${firstStr
-        .toString()
-        .replace(/,/g, " ")}*`
-    );
-  }
-
-  if (secondStr.toString().length <= limit) {
-    if (positionArray[1] === "LEFT") {
-      console.log(
-        `*${secondStr.toString().replace(/,/g, " ")}${" ".repeat(
-          limit - secondStr.toString().length
-        )}*`
-      );
-    } else {
-      console.log(
-        `*${" ".repeat(limit - secondStr.toString().length)}${secondStr
-          .toString()
-          .replace(/,/g, " ")}*`
-      );
+  let borderString = `${"*".repeat(limit + 2)}`;
+  console.log(borderString);
+  textArray.forEach((el, i) => {
+    if (positionArray[i] === "LEFT") {
+      let newStr = el.join(" ");
+      if (newStr.length > limit) {
+        for (let i = 0; i < el.length / 3; i++) {
+          let subArray = el.slice(i * 3, i * 3 + 3).join(" ");
+          let fullString = `*${subArray}${" ".repeat(
+            limit - subArray.length
+          )}*`;
+          console.log(fullString);
+        }
+      } else {
+        let fullString = `*${newStr}${" ".repeat(limit - newStr.length)}*`;
+        console.log(fullString);
+      }
+    } else if (positionArray[i] === "RIGHT") {
+      let newStr = el.join(" ");
+      if (newStr.length > limit) {
+        for (let i = 0; i < el.length / 3; i++) {
+          let subArray = el.slice(i * 3, i * 3 + 3).join(" ");
+          let fullString = `*${" ".repeat(
+            limit - subArray.length
+          )}${subArray}*`;
+          console.log(fullString);
+        }
+      } else {
+        let fullString = `*${" ".repeat(limit - newStr.length)}${newStr}*`;
+        console.log(fullString);
+      }
     }
-  } else {
-    let firstPartOfSecondStr = secondStr.slice(0, 3);
-    let secondPartOfSecondStr = secondStr.slice(3, 6);
-    if (positionArray[1] === "LEFT") {
-      console.log(
-        `*${firstPartOfSecondStr.toString().replace(/,/g, " ")}${" ".repeat(
-          limit - firstPartOfSecondStr.toString().length
-        )}*`
-      );
-      console.log(
-        `*${secondPartOfSecondStr.toString().replace(/,/g, " ")}${" ".repeat(
-          limit - secondPartOfSecondStr.toString().length
-        )}*`
-      );
-    } else {
-      console.log(
-        `*${" ".repeat(
-          limit - firstPartOfSecondStr.toString().length
-        )}${firstPartOfSecondStr.toString().replace(/,/g, " ")}*`
-      );
-      console.log(
-        `*${" ".repeat(
-          limit - secondPartOfSecondStr.toString().length
-        )}${secondPartOfSecondStr.toString().replace(/,/g, " ")}*`
-      );
-    }
-  }
-
-  if (positionArray[2] === "LEFT") {
-    console.log(
-      `*${thirdStr.toString().replace(/,/g, " ")}${" ".repeat(
-        limit - thirdStr.toString().length
-      )}*`
-    );
-  } else {
-    console.log(
-      `*${" ".repeat(limit - thirdStr.toString().length)}${thirdStr
-        .toString()
-        .replace(/,/g, " ")}*`
-    );
-  }
-  console.log(`${"*".repeat(limit + 2)}`);
+  });
+  console.log(borderString);
+  return 0;
 }
